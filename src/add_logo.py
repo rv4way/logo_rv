@@ -11,6 +11,7 @@ import add_negative
 import train
 import re_train
 import histogram
+import time
 
 
 def add_logo(img_arr, profile_id):
@@ -57,6 +58,11 @@ def write_csv(file_path, csv_data):
 
 
 if __name__ == '__main__':
-	img_path = '/home/rahul/Downloads/logo_data/bajaj/Correct/Bajaj-Auto_logo_500_55381r_1.png'
+	x = time.ctime()
+	img_path = '/home/rahul/Downloads/7up/Correct/download (1)_jpg_logo_400_5603r_1.png'
 	img_arr = cv2.imread(img_path)
-	add_logo(img_arr, 'bajaj')
+	add_logo(img_arr, '7upLogo')
+	y = time.ctime()
+
+	print x
+	print y

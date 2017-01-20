@@ -21,7 +21,7 @@ feat_false = '../database/negative/'
 neg_dirg = '../database/negative_selection/gist/'
 neg_dirh = '../database/negative_selection/hog/'
 classi = '../database/classifier/'
-root_dir = '../database/negative_selection'
+root_dir = '../database/negative_selection/'
 
 rec_control = 1
 #return the flag values
@@ -226,9 +226,9 @@ def re_train(new_false_new,new_false_old,train_set,labels,shape_y,new_comp2,num1
     #print 'total',new_train.shape
     labels_new = []    
     for i in range(true_row2):
-        labels_new.append(1)
+        labels_new.append(int(1))
     for i in range(int(f_x)):
-        labels_new.append(0)
+        labels_new.append(int(0))
         
     labels_new = np.asarray(labels_new)#new labels
     #print 'labels and data',labels_new.shape,new_train.shape 
@@ -459,7 +459,7 @@ def load_new(name,f_type):
     randomForest(data_correct,data_false,name,shape_y-1,f_type)
 #start()
 def start_1(name): #start from here
-    load_new(name,'Gist')
-    load_new(name,'Hog')
+    load_new(name,'gist')
+    load_new(name,'hog')
 #load_new(name,f_type) #load the feature...
 

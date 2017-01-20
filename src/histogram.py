@@ -42,7 +42,7 @@ def add_hist(img_arr, profile_id):
 		cPickle.dump(arr, f, protocol=cPickle.HIGHEST_PROTOCOL)
 		f.close()
 
-	histogram_path = '../DataBase/histogram'
+	histogram_path = '../database/histogram'
 	profile_path = os.path.join(histogram_path, str(profile_id))
 	if not os.path.exists(profile_path):
 		os.mkdir(profile_path)

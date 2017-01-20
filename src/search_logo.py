@@ -14,6 +14,9 @@ def main_fun(img_arr):
 	affine = afine_search.affine_transform(img_arr)
 	affine_res = search_logo(affine)
 
+	print ori_res
+	print affine_res
+
 	inter = set(ori_res).intersection(affine_res)
 	print inter
 
@@ -67,4 +70,4 @@ def predict_gist(gist):
 if __name__ == '__main__':
 	img_path = '/home/rahul/Downloads/logo_data/alfa romeo/Correct/images (13)_jpg_logo_500_56737r_1.png'
 	img_arr = cv2.imread(img_path)
-	search_logo(img_arr)
+	main_fun(img_arr)

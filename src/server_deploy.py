@@ -117,13 +117,13 @@ def add():
 		return 	jsonify(**ret_val)
 
 def update_idcsv(name):
-	search_in = pd.read_csv(data["ImageCsv"], sep = ',', header = None)
+	search_in = pd.read_csv('../database/image_id.csv', sep = ',', header = None)
 	search_in = np.asarray(search_in)
 	if name in search_in[0]:
 		return
 		#update
 	else:
-		temp_csv_path = data["ImageCsv"]
+		temp_csv_path = '../database/image_id.csv'
 		f = open(temp_csv_path, 'a')
 		f.write(name)
 		f.write('\n')

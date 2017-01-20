@@ -18,17 +18,9 @@ def affine_transform(img):
 	M = cv2.getAffineTransform(pts1,pts2)
 
 	dst = cv2.warpAffine(img,M,(cols,rows))
-	salt = saltandpepper1.noise_addition(dst)
-	#cv2.imshow('salt', salt)
-	#cv2.waitKey()
+	salt = salt_pepper.noise_addition(dst)
 	con_img = convolve_image(salt)
-	#cv2.imshow('consalt', con_img)
-	#cv2.waitKey()
 	return con_img
-
-
-	#cv2.imshow('AFFINE', dst)
-	#cv2.waitKey()
 
 def convolve_image(img):
 
