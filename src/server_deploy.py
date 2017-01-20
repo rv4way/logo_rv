@@ -61,7 +61,7 @@ def hello():
 
 			img = cv2.imdecode(data1, color_image_flag) #img is the image
 		
-			v = search_logo.search_logo(img)
+			v = search_logo.main_fun(img)
 			print v
 			if len(v) == 0:
 				v = json.dumps(v)

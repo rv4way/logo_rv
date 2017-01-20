@@ -6,6 +6,18 @@ import cv2
 from scipy.misc import imresize
 import gist_feature
 import hog_feature
+import afine_search
+
+def main_fun(img_arr):
+	
+	ori_res = search_logo(img_arr)	
+	affine = afine_search.affine_transform(img_arr)
+	affine_res = search_logo(affine)
+
+	inter = set(ori_res).intersection(affine_res)
+	print inter
+
+	return inter
 
 
 def search_logo(img_arr):
@@ -19,6 +31,7 @@ def search_logo(img_arr):
 	gist_list = predict_gist(gist)
 
 	inter = set(gist_list).intersection(hog_list)
+	#print list(inter)
 	return list(inter)
 
 
@@ -52,6 +65,6 @@ def predict_gist(gist):
 
 
 if __name__ == '__main__':
-	img_path = '/home/rahul/Desktop/images/logos/fgfdg.jpg'
+	img_path = '/home/rahul/Downloads/logo_data/alfa romeo/Correct/images (13)_jpg_logo_500_56737r_1.png'
 	img_arr = cv2.imread(img_path)
 	search_logo(img_arr)

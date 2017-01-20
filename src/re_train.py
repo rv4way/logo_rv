@@ -7,10 +7,10 @@ import pandas as pd
 import os
 from sklearn.externals import joblib
 import random
-import add_logo
-import add_negative
 import train
+import train_basic
 
+'''
 def predict_neg(profile_id, method):
 
 	positive_gist = '../database/positive/gist'
@@ -130,3 +130,30 @@ def start(profile_id):
 	predict_neg(profile_id, 'HOG')
 	add_positive(profile_id)
 	train.merge_data(profile_id)
+'''
+def main_fun(profile_id):
+
+ 	clasifier_gist = '../database/classifier/gist'
+	clasifier_hog = '../database/classifier/hog'
+
+	negative_gist = '../database/negative/gist'
+	negative_hog = '../database/negative/hog'
+
+	positive_gist = '../database/positive/gist'
+	positive_hog = '../database/positive/hog'
+
+	pos_gist_list = os.listdir(positive_gist)
+	pos_hog_list = os.listdir(positive_hog)
+
+	for x in pos_gist_list:
+		profile_id = x.split('.')[0]
+		#print profile_id
+		new_neg = train.predict_negative(profile_id, positive_gist, clasifier_gist)
+		train.re_train_classifier(profile_id, new_neg, positive_gist, negative_gist, clasifier_gist)
+
+	for x in pos_hog_list:
+		profile_id = x.split('.')[0]
+		new_neg = train.predict_negative(profile_id, positive_hog, clasifier_hog)
+		train.re_train_classifier(profile_id, new_neg, positive_hog, negative_hog, clasifier_hog)
+		train_basic.start_1(profile_id)
+		

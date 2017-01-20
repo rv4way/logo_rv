@@ -10,6 +10,7 @@ import affine_transform
 import add_negative
 import train
 import re_train
+import histogram
 
 
 def add_logo(img_arr, profile_id):
@@ -19,31 +20,32 @@ def add_logo(img_arr, profile_id):
 
 	img = imresize(img_arr, (47*2, 55*2), interp = 'bicubic')
 
+	histogram.add_hist(img, profile_id)
+
 	gist = gist_feature.feature(img)
 	gist = np.concatenate((gist,[1]))
 	gist_file = positive_gist + '/' + str(profile_id) + '.csv'
 	write_csv(gist_file, gist)
+	print 'GIST CALCULATED'
 
 	hog = hog_feature.hog_call(img)	
 	hog = np.concatenate((hog,[1]))	
 	hog_file = positive_hog + '/' + str(profile_id) + '.csv'	
 	write_csv(hog_file, hog)
+	print 'HOG CALCULATED'
 
+	print 'GENERATING AFFINE'
 	no_affine = affine_transform.generate_affine(img, profile_id)
+	print 'AFFINE GENERATED'
+	
+	add_negative.main_fun(profile_id)
+	print 'NEGATIVE ADDED'
+	
+	train.main_fun(profile_id)
+	print 'MACHINE TRAINED'
 
-	add_negative.negative(profile_id)
-
-	train.merge_data(profile_id)
-
-	re_train.predict_neg(profile_id, 'GIST')
-	re_train.predict_neg(profile_id, 'HOG')
-
-	re_train.add_positive(profile_id)
-	train.merge_data(profile_id)
-
-	re_train.re_train_classifier(profile_id)
-
-	return 'Done'
+	re_train.main_fun(profile_id)
+	print 'ALL MACHINE RE_TRAINED'
 
 
 def write_csv(file_path, csv_data):
@@ -55,6 +57,6 @@ def write_csv(file_path, csv_data):
 
 
 if __name__ == '__main__':
-	img_path = '/home/rahul/Desktop/images/logos/hp.png'
+	img_path = '/home/rahul/Downloads/logo_data/bajaj/Correct/Bajaj-Auto_logo_500_55381r_1.png'
 	img_arr = cv2.imread(img_path)
-	add_logo(img_arr, 'testLogo')
+	add_logo(img_arr, 'bajaj')

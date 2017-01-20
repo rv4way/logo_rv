@@ -20,7 +20,7 @@ def generate_affine(img, profile_id):
 	positive_gist = '../database/positive/gist'
 	positive_hog = '../database/positive/hog'
 
-	for i in range(2):        
+	for i in range(50):        
 		#padd the image
 		img1 = padding(img)
 		#cv2.imshow('after concatat',img1)
